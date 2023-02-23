@@ -37,7 +37,15 @@ module "subnet_addrs" {
       new_bits = 8
     },
     {
-      name     = "az3_jumpnet"
+      name     = "az1_private"
+      new_bits = 8
+    },
+    {
+      name     = "az2_private"
+      new_bits = 8
+    },
+    {
+      name     = "az3_private"
       new_bits = 8
     },
   ]
@@ -82,23 +90,23 @@ resource "aws_subnet" "pub_c" {
 
 resource "aws_subnet" "private_a" {
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = module.subnet_addrs.network_cidr_blocks.az1_public
+  cidr_block              = module.subnet_addrs.network_cidr_blocks.az1_private
   availability_zone       = "${var.aws_region}a"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
   tags                    = { "kubernetes.io/cluster/${var.cluster_name}" = "true", "kubernetes.io/role/elb" = "1", Name = "private-a" }
 }
 resource "aws_subnet" "private_b" {
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = module.subnet_addrs.network_cidr_blocks.az2_public
+  cidr_block              = module.subnet_addrs.network_cidr_blocks.az2_private
   availability_zone       = "${var.aws_region}b"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
   tags                    = { "kubernetes.io/cluster/${var.cluster_name}" = "true", "kubernetes.io/role/elb" = "1", Name = "private-b" }
 }
 resource "aws_subnet" "private_c" {
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = module.subnet_addrs.network_cidr_blocks.az3_public
+  cidr_block              = module.subnet_addrs.network_cidr_blocks.az3_private
   availability_zone       = "${var.aws_region}c"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
   tags                    = { "kubernetes.io/cluster/${var.cluster_name}" = "true", "kubernetes.io/role/elb" = "1", Name = "private-c" }
 }
 resource "aws_eip" "nat" {
