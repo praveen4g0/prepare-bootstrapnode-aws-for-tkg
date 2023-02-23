@@ -40,3 +40,5 @@ tanzu config server list
 
 tanzu kubernetes-release get
 
+tanzu cluster delete tkg1 -y -v9
+

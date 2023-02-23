@@ -2,10 +2,10 @@ variable "awsprops" {
     type = map(string)
     default = {
     region = "us-east-2"
-    vpc = "vpc-0c2f58084559cb994"
+    vpc = "vpc-0bb27a55dcf306581"
     ami = "ami-0568936c8d2b91c4e"
     itype = "t2.medium"
-    subnet = "subnet-05cec4e70581f08ed"
+    subnet = "subnet-0c5a71a1aa50c4b08"
     publicip = true
     keyname = "my-macbookpro"
     secgroupname = "IAC-Sec-Group"
@@ -101,9 +101,9 @@ sudo mkdir -m 0755 -p /etc/apt/keyrings
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
 
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
